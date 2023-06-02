@@ -96,7 +96,7 @@ def index():
                     newMessage['From'] = Sender_Email  #Defining sender email
                     newMessage['To'] = Reciever_Email  #Defining reciever email
                     new_line='\n'
-                    msg=f"Hi, here is your B/W image resized accordingly.{new_line}Download link is also given below.{new_line}{nexturl}"
+                    msg=f"Hi, here is your Black & White image resized accordingly.{new_line}"
                     newMessage.set_content(msg) 
                     
                     pathemail=os.path.join(app.config["IMAGE_UPLOADS"], filename)
@@ -110,9 +110,9 @@ def index():
                         smtp.login(Sender_Email, Password) #Login to SMTP server
                         smtp.send_message(newMessage)
                     
-                    #return redirect(request.url) for refreshing the home page
+                    return redirect(request.url) #for refreshing the home page
                     
-                return  redirect(nexturl)
+                return  redirect(nexturl) #for auto download on browser
 
             else:
                 print("That file extension is not allowed")
@@ -128,77 +128,3 @@ def get_image(image_name):
         return send_from_directory(app.config["IMAGE_UPLOADS"], path=image_name, as_attachment=True)
     except FileNotFoundError:
         abort(404)
-
-# @app.route("/get-csv/<csv_id>")
-# def get_csv(csv_id):
-
-#     filename = f"{csv_id}.csv"
-
-#     try:
-#         return send_from_directory(app.config["CLIENT_CSV"], path=filename, as_attachment=True)
-#     except FileNotFoundError:
-#         abort(404)
-
-# @app.route("/get-pdf/<pdf_id>")
-# def get_pdf(pdf_id):
-
-#     filename = f"{pdf_id}.csv"
-
-#     try:
-#         return send_from_directory(app.config["CLIENT_PDF"], path=filename, as_attachment=True)
-#     except FileNotFoundError:
-#         abort(404)
-
-
-# for yt video example
-# @app.route("/signup", methods=["GET", "POST"])
-# def sign_up():
-
-#     if request.method == "POST":
-
-#         username = request.form["username"]
-#         email = request.form["email"]
-#         password = request.form["password"]
-
-#         print(username,email,password)
-
-#         return redirect(request.url)
-
-#     return render_template("signup.html")
-
-# @app.route("/json", methods=["POST"])
-# def json_example():
-
-#     if request.is_json:
-
-#         req = request.get_json()
-
-#         response_body = {
-#             "message": "JSON received!",
-#             "sender": req.get("name")
-#         }
-
-#         res = make_response(jsonify(response_body), 200)
-
-#         return res
-
-#     else:
-
-#         return make_response(jsonify({"message": "Request body must be JSON"}), 400)
-
-# GUESTBOOK - yt data submission form
-# @app.route("/guestbook")
-# def guestbook():
-#     return render_template("guestbook.html")
-
-# @app.route("/guestbook/create-entry", methods=["POST"])
-# def create_entry():
-
-#     req = request.get_json()
-
-#     print(req)
-
-#     res = make_response(jsonify({"message": "OK"}), 200)
-
-#     return res
-
