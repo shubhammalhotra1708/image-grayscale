@@ -13,5 +13,6 @@ Google drive link - [Watch](https://drive.google.com/file/d/1ADmNtMBo7_qnyCqKNma
 3. In the terminal type:
     * $ virtualenv env
     * $ source env/Scripts/activate
+    * $ pip install -r requirements.txt
     * $ flask --debug run
 
